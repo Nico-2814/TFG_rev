@@ -1,0 +1,13 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}El formalismo KvN en sistemas híbridos}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}El formalismo de Koopman para la mecánica estadística clásica}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}$C^*$-álgebras de observables}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}$C^*$-álgebra cuántica}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}$C^*$-álgebra clásica}{7}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}$C^*$-álgebra híbrida}{7}{subsection.2.2.3}%
+\contentsline {chapter}{\numberline {3}Definición de una entropía híbrida y HCE}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Entropía híbrida}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Ensemble canónico híbdrido}{9}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Dinámica de los sistemas híbridos}{11}{chapter.4}%
+\contentsline {chapter}{\numberline {A}Algunas herramientas matemáticas adicionales}{13}{chapter.1}%

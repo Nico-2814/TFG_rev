@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+
+\bibitem{GeomQM}
+J.~Clemente-Gallardo.
+\newblock The geometrical formulation of quantum mechanics.
+\newblock {\em Rev. Real Academdia de Ciencias}, (67):51--103, 2012.
+
+\bibitem{Koopman}
+B.~O. Koopman.
+\newblock Hamiltonian systems and transformations in hilbert space.
+\newblock {\em Proceedings of the National Academy of Sciences}, 17(5):315--318, 1931.
+
+\bibitem{JPA}
+C~Bouthelier-Madre, J~Clemente-Gallardo, L~González-Bravo, and D~Martínez-Crespo.
+\newblock Hybrid koopman {${C^*}$}-formalism and the hybrid quantum-classical master equation*.
+\newblock {\em Journal of Physics A: Mathematical and Theoretical}, 56(37):374001, 2023.
+
+\bibitem{Carmen}
+María del~Carmen Muñoz and J.~Clemente-Gallardo.
+\newblock El formalismo de koopman en la dinámica de sistemas híbridos clásico-cuánticos.
+\newblock Master's thesis, Universidad de Zaragoza, 2024.
+
+\bibitem{turumaru}
+Takasi Turumaru.
+\newblock On the direct-product of operator algebras ii.
+\newblock {\em Tohoku Mathematical Journal, Second Series}, 5(1):1--7, 1953.
+
+\bibitem{alonso}
+J.~L. Alonso, C.~Bouthelier, A.~Castro, J.~Clemente-Gallardo, and J.~A. Jover-Galtier.
+\newblock Entropy and canonical ensemble of hybrid quantum classical systems.
+\newblock {\em Phys. Rev. E}, 102:042118, Oct 2020.
+
+\end{thebibliography}

@@ -1,0 +1,331 @@
+\documentclass[openany, 11pt]{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[table, dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage[skip=3pt,small,up]{caption}
+\usepackage[skip=10pt plus1pt, indent=20pt]{parskip}
+\usepackage{hyperref}
+%\usepackage{multirow}
+%\usepackage{nicematrix}
+%\usepackage[nottoc]{tocbibind}
+%\usepackage{bm}
+%\usepackage{makecell}
+\usepackage{physics}
+\usepackage[Glenn]{fncychap}
+\usepackage{keytheorems}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+
+
+\title{}
+\author{Nicolás Díez Andrés}
+\date{Curso 2025/2026}
+
+\numberwithin{equation}{chapter}
+\addto\captionsspanish{\renewcommand*\contentsname{Índice}}
+
+\newcommand{\Hc}{\mathcal H_C}
+\newcommand{\Hq}{\mathcal H_Q}
+\newcommand{\Hh}{\mathcal H_H}
+\newcommand{\Ac}{\mathcal A_C}
+\newcommand{\Aq}{\mathcal A_Q}
+\newcommand{\Ah}{\mathcal A_H}
+\newcommand{\Mc}{\mathcal M_C}
+\newcommand{\Qop}{\hat Q}
+\newcommand{\Pop}{\hat P}
+\newcommand{\Piq}{\hat \Pi_q}
+\newcommand{\Pip}{\hat \Pi_p}
+
+\newkeytheoremstyle{leftbar}
+  {
+    headfont=\bfseries,       
+    bodyfont=\itshape,       
+    noteseparator={: },       
+    notebraces={(}{)},        
+    notefont=\normalfont,
+    tcolorbox-no-titlebar=
+      {
+        colback=white,
+        colframe=black!60,       
+        sharp corners,
+        boxrule=0pt,         
+        leftrule=4pt,        
+        rightrule=0pt,      
+        toprule=0pt,
+        bottomrule=0pt,     
+        top=0pt,
+        bottom=0pt,
+      },
+  }
+
+\newkeytheorem{definition}[parent = chapter, style = leftbar, name = Definición]
+\newkeytheorem{theorem}[parent = chapter, style = leftbar, name = Teorema]
+\newkeytheorem{proposition}[parent = chapter, style = leftbar, name = Proposición]
+
+\renewcommand{\labelenumi}{\roman{enumi}}
+\setstretch{1.15}
+
+
+\begin{document}
+
+\include{portada.tex}
+
+\newpage 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\pagenumbering{gobble}
+\pagestyle{fancy}
+\fancyhead[L]{Nicolás Díez Andrés}
+\fancyhead[R]{\thechapter. \textsc{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+\section*{Resumen}
+
+\newpage
+
+\textit{bla bla bla}
+
+\newpage
+
+\pagenumbering{roman}
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+
+\chapter{Introducción}
+
+Un sistema híbrido clásico-cuántico se define como aquel formado por un subsistema clásico y otro cuántico
+acoplados. Generalmente, se tratará de un sistema cuántico en el cual algunos de sus grados de libertad
+pueden ser aproximados por unos clásicos, lo que suele venir justificado por una diferencia en las escalas de masa
+o energía. Esto permite reducir la carga computacional del modelo, a la vez que se mantiene una descripción lo suficientemente
+cercana a la real de todos los grados de libertad. 
+
+Un ejemplo en el que este tipo de descripción es de gran utilidad es la dinámica molecular,
+en la que podemos encontrar dos escalas diferenciadas para el núcleo y los electrones internos, que podemos describir clásicamente al presentar 
+una masa mayor y menor velocidad, y los electrones de las capas externas, de descripción necesariamente cuántica debido a su menor masa y mayor velocidad. 
+No obstante, podemos encontrar también ejemplos de estos sistemas en áreas como la descripción del proceso de medida, describiendo el sistema como cuántico 
+y el objeto de medida como un elemento clásico, o para describir la interacción de materia cuántica con un campo gravitacional clásico.
+
+Un primero problema que aparece a la hora de describir este tipo de sistemas es el formalismo matemático a emplear. Por una parte, la descripción más habitual de 
+la mecánica clásica viene dada en términos de geometría diferencial. Concretamente, la formulación habitual más general considera los espacios de fases como variedades de 
+Poisson, donde la dinámica viene descrita por las ecuaciones de Hamilton. Por su parte, la mecánica cuántica se describe de forma general de dos formas distintas; en la imagen de 
+Schrödinger mediante estados contenidos en espacios de Hilbert, en la imagen de Heisenberg mediante operadores pertenecientes a $C^*$-álgebras. En particular, queda de manifiesto la 
+incompatibilidad de ambos formalismos. Debemos por tanto encontrar primero nuevas descripciones de ambos mundos que nos permitan describir de manera connjunta una dinámica híbrida unificada.
+
+Una primera aproximación al problema consiste en describir el sistema cuántico en términos de geometría diferencial, es decir, asemejar su descripción a una clásica. Para ello \cite{GeomQM}, el espacio de Hilbert 
+$\mathcal H$ es sustituido por una realificación del mismo, $\mathcal H_\mathbb{R} :=  \mathcal M_Q$, es decir, una variedad diferenciable del doble de dimensión mediante la aplicación $\ket{\psi}\in \mathcal H \mapsto (\phi_R, \phi_I)\in \mathcal M_Q$. 
+Mediante esta costrucción, conseguimos transformar la ecuación de Schrödinger en una dinámica hamiltoniana, gracias a la introducción de un corchete de Poisson en $\mathcal M_Q$, pudiendo así reescribir las ecuaciones de Ehrenfest en una variedad de Poisson. 
+Así, la descripción del sistema híbrido vendría dada por un espacio de fase $\mathcal M_H := \mathcal M_C\times \mathcal M_Q$, donde podemos definir un corchete de Poisson dado por \begin{equation}
+    \{\cdot,\cdot\}_H = \{\cdot,\cdot\}_C+\hbar^{-1}\{\cdot,\cdot\},
+\end{equation}donde $\{\cdot,\cdot\}$ representa el corchete de Poisson en $\mathcal M_C$ y $\{\cdot,\cdot\}_Q$ el de $\mathcal M_Q$, de forma que podemos escribir la dinámica de Ehrenfest para un sistema híbrido en este formalismo.
+
+Sin embargo, existe otra forma de aproximarse al problema de la descripción del sistema híbrido. Ahora, trataremos de describir 
+el subsistema clásico siguiendo un modelo formalmente cuántico, es decir, en términos de espacios de Hilbert. Este será el tratamiento que seguiremos en este trabajo. Para ello, 
+partiremos del formalismo introducido en 1931 por Bernard Koopman \cite{Koopman}, que permite escribir la dinámica de un sistema clásico en un espacio de Hilbert formado por las representaciones 
+los observables del sistema, $\mathcal H_C$. De este modo, podemos construir un espacio de Hilbert híbrido $\mathcal{H}_H = \mathcal H_C \otimes \mathcal H_Q$, donde $\mathcal H_Q$ es el espacio de Hilbert habitual 
+de la mecánica cuántica. Para ello, se deberá definir una $C^*$-álgebra de operadores híbridos $\mathcal A_H=\Ac\otimes\Aq$, a partir de la $C^*$-álgebra habitual de operadores cuánticos $\Aq$ y la definición de una $C^*$-álgebra conmutativa de operadores 
+clásicos $\Ac$. De este modo, tendremos caracterizados los estados híbridos como el espacio dual a $Ah$. 
+
+La utilización de este último formalismo presenta varias ventajas respecto al de Ehrenfest. Una de ellas es que la dinámica en el formalismo de Koopman-von Neumann (KvN) es lineal, mientras que en el formalismo de Ehrenfest esto no ocurre.
+Por otra parte, la definición de entropía resulta mucho más natural, pudiendo emplear la entropía de von Neumann para nuestros estados, mientras que la formulación de una entropía consistente para el formalismo de Ehrenfest presenta 
+varias dificultades, debido a la definición probabilística de estado. Además, implementar una dinámica interna al espacio de observables y que sea dual a la del espacio de estados resulta un desafío mucho mayor en el formalismo de Ehrenfest 
+que en el de KvN. 
+
+El principal objetivo de este trabajo consiste en tratar de verificar una de las condiciones que debe cumplir una dinámica definida en $\Hh$, tratando de analizar concretamente el caso de la dinámica Lindbladiana. 
+Para ello, se analizará la estabilidad del definido como ensemble canónico híbrido (HCE) bajo esta dinámica. La elección de una dinámica Lindbladiana se basa a que en \cite{JPA} se concluye que una dinámica unitaria 
+no presenta la propiedad conocida como \textit{back-reaction}, que consiste en que los grados de libertad cuánticos influyan en los clásicos. Sin embargo, se demuestra en \cite{Carmen} que esto sí que sucede en el caso de 
+la dinámica Lindbladiana. La comprobación de la estabilidad del HCE cerraría por tanto la verificación de la dinámica Lindbladiana como candidata válida a dinámica sobre $\Hh$, y por tanto dinámica válida para un sistema híbrido.
+
+DESCRIBIR DOCUMENTO
+
+\chapter{El formalismo KvN en sistemas híbridos}
+
+\section{El formalismo de Koopman para la mecánica estadística clásica}
+
+En esta sección, se describirá el formalismo de Koopman para la mecánica clásica, que permite expresar la dinámica de 
+las ecuaciones de Hamilton de forma similar a una ecuación de Schrödinger en un espacio de Hilbert. Este es un paso crucial en la descripción 
+de un sistema híbrido en términos de espacios de Hilbert. 
+
+Supongamos que tenemos un sistema clásico, cuyo espacio de fases viene descrito por una variedad simpléctica de dimensión 2$n$, $(\Mc, \omega)$. 
+Definamos ahora en $(\Mc, \omega)$ la medida \begin{equation}
+    d\mu = \omega^{\wedge n} = \overbrace{\omega \wedge ... \wedge \omega }^{n \text{ veces}}.
+\end{equation}Según el teorema de Darboux, la forma $\omega$ se puede expresar localmente como $\omega = \sum_{i=1}^n dq^i \wedge dp_i$. La medida $\mu$ definida anteriormente 
+cumple que, dada una función $\rho:\Omega \to \mathbb R$ analítica definida positiva y una transformación $(q(0), p(0)) \mapsto (q(t), p(t))$ para $t>0$ de acuerdo a las ecuaciones de 
+movimiento cumple que esta transformacióndeja invariante la integral $\int_\Omega \rho \ d\mu$ para todo abierto $\Omega \subseteq \Mc$. Esto nos permite definir una densidad de probabilidad
+$\rho : \Mc \to \mathbb R$ y una medida $\tilde \mu = \rho \mu$ tal que \begin{equation}
+    \tilde \mu (\Mc) = \int_{\Mc} d\tilde\mu = \int_{\Mc} \rho d\mu = 1.
+\end{equation}Consideremos ahora el espacio de Hilbert de funciones de cuadrado integrable sobre $\Mc$, \begin{equation}
+    \mathcal L^2(\Mc, \mu) = \left\{f:\Mc \to \mathbb C \ \middle | \ \int_{\Mc}|f|^2 d\mu <\infty\right\},
+\end{equation}con el producto escalar \begin{equation}
+    \langle f, g \rangle \int_{\Mc} \bar f gd\mu.
+\end{equation}Por otra parte, si consideramos un sistema Hamiltoniano $(\Mc, \omega, X_H)$, con flujo Hamiltoniano $F_t :\Mc \to\Mc$, entonces sabemos que $F_t$ es un simplectomorfismo, de modo 
+que la transformación \begin{equation} \begin{aligned}
+    U_t: C^\infty(\Mc) &\to C^\infty(\Mc) \\ f &\mapsto F_t^*\circ f\end{aligned}
+\end{equation}es unitaria. Como tenemos un grupo continuo de transformaciones unitarias determinadas por un único 
+parámetro $t\in\mathbb R$, el teorema de Stone asegura que existe un operador autoadjunto $L$ tal que $U_t = e^{-itL} \ \forall t\in\mathbb R$, que llamaremos operador de Koopman. 
+Puesto que se trata del generador de la dinámica hamiltoniana, deberá ser de la forma \begin{equation}
+    \hat L = -iX_H = -i\left(\pdv{H}{q^k}\pdv{p_k}-\pdv{H}{p_k}\pdv{q^k}\right).
+\end{equation}Así, si tenemos una densidad de probabilidad clásica $\rho$, que cumple las propiedades antes mencionadas, tenemos que su evolución viene dada por la ecuación de Liouville\begin{equation}
+    \dot \rho = -X_H(\rho).
+\end{equation}De este modo, si tomamos un estado $\psi_\rho\in\mathcal L^2(\Mc,\omega)$ tal que $\rho = \bar \psi_\rho \psi_\rho$, que existe por ser $\rho$ definida positiva, obtenemos una ecuación similar a la de 
+Schrödinger para los estados en el espacio de Hilbert, \begin{equation}
+    i\dot\psi_\rho = \hat L\psi_\rho,
+\end{equation}que era nuestro objetivo principal al construir este formalismo.
+
+Ahora, las magnitudes clásicas se corresponderán con operadores autoadjuntos sobre $\Hc=\mathcal L^2(\Mc, \mu)$. Como funciones, las variables $p$ y $q$ se comportan de manera análoga, de modo que los correspondientes operadores $\Qop$ y $\Pop$, que tendrán los posibles valores de $q$ y $p$ como espectro, 
+deberán actuar como operadores multiplicativos y conmutar entre ellos. De igual manera, tenemos que todos los operadores deberán conmutar, por lo que necesariamente el subálgebra de $Op(\Hc)$ formada por los operadores que representan las magnitudes clásicas, y que denotaremos por $\mathcal A_c$, será un álgebra 
+conmutativa. Puesto que todo Hamiltoniano también pertenece a $\Ac$, la conmutatividad de esta nos impide definir una dinámica al modo de la imagen de Heisenberg. No obstante, el operador $\hat L$ no pertenece a $\Ac$ por ser de tipo diferencial, luego podemos emplear su acción adjunta para definir una dinámica no 
+trivial sobre $Op(\Hc)$, que además mantiene invariante $\Ac$.
+
+\section{$C^*$-álgebras de observables}
+
+Si bien ahora nos es posible construir un espacio de estados híbridos $\Hh = \Hc \otimes \Hq$, la tan diferente naturaleza de los clásicos y los cuánticos por separado nos lleva a buscar una construcción en imagen de Heisenberg, en la que implementamos la dinámica sobre los observables. Para ello, será esencial la 
+noción de $C^*$-álgebra de operadores. 
+
+\begin{definition}[$C^*$-álgebra]
+    Dada un álgebra $\mathcal A$ asociativa sobre $\mathbb R$ o $\mathbb C$, diremos que $\mathcal A$ es una $C^*$-álgebra si \begin{enumerate}
+        \item es un espacio de Banach (normado y completo para esta norma),
+        \item $||x\cdot y|| \leq ||x||\cdot ||y|| \quad\forall x,y\in\mathcal A$ (propiedad submultiplicativa de la norma),
+        \item presenta una involución $^*$,
+        \item $||x^* \cdot x|| = ||x||^2 \quad \forall x\in\mathcal A$ (propiedad $C^*$).
+    \end{enumerate}Si $\mathcal A$ solo cumple \textsc{I} y \textsc{II} se llama álgebra de Banach, mientras que si también cumple \textsc{III} se llama *-álgebra.
+\end{definition}
+
+También necesitaremos tener una noción de estado, puesto que será necesario obtener valores esperados a partir de los operadores que conforman la $C^*$-álgebra.
+
+\begin{definition}[Estado]
+    Un estado $\omega$ de una $C^*$-álgebra $\mathcal A$ es un elemento del dual $\mathcal A^*$, es decir, un funcional lineal sobre $\mathcal A$, definido positivo y con norma 1, 
+    donde la norma viene definida por \begin{equation}
+        ||\omega|| =\sup\{|\omega(a)| \mid a\in\mathcal A, ||a|| = 1\}.
+    \end{equation}
+\end{definition}
+
+De este modo, al hacer actuar un estado sobre un operador, obtendremos un escalar, que se corresponderán con el valor esperado de dicho operador sobre el estado indicado.
+
+\subsection{$C^*$-álgebra cuántica}
+
+Si consideramos el conjunto de operadores acotados sobre $\Hq$, $\mathcal B(\Hq)$, y definimos en él la norma \begin{equation}
+    ||A|| = \sup\{||A\psi|| \mid \psi \in\Hq, ||\psi||=1\}
+\end{equation}y la involución dada por $A^* = A^\dagger$,  es bien sabido que el conjunto obtenido, denotado $\Aq$, tiene estructura de $C^*$-álgebra. 
+Esta $C^*$-álgebra será nuestra $C^*$-álgebra cuántica, y contiene el conjunto de observables cuánticos, que será \begin{equation}
+    L = \{A\in\Aq \mid A^\dagger = A\}.
+\end{equation}Además, cabe destacar que el conjunto de estados de $\Ac$ es isomorfo a \begin{equation}
+    \mathcal D(\Hq) = \{\hat\rho \in\mathcal B(\Hq) \mid \hat\rho^\dagger=\hat\rho, \hat\rho>0,\Tr\hat\rho=1\}.
+\end{equation}El teorema de Gleason nos dice que efectivamente con este conjunto estamos considerando todos los posibles estados de un sistema cuántico con espacio 
+de estados en $\Hq$, lo que justifica el empleo de matrices densidad para representar nuestros estados cuánticos. En cuanto a la representación de $\Aq$, la representación de la construcción GNS 
+$\pi_Q:\Ac\to\mathcal B(\Hq)$ es la natural, y será irreducible si tomamos un estado puro o reducible si lo tomamos mezcla.
+
+\subsection{$C^*$-álgebra clásica}
+
+Consideraremos como observables clásicos el conjunto de funciones complejas de soporte compacto sobre $\Mc$, $\mathcal C_c(\Mc, \mathbb C)$. Sobre este conjunto definimos 
+el producto punto a punto ($(f\cdot_c g)(x) = f(x)g(x)$), la conjugación compleja como involución ($f^*(x) = \bar f(x)$), y la norma dada por $||f|| = \sup\{|f(x) \mid x\in\Mc\}$. 
+Con estas propiedades, el conjunto $\mathcal C_c(\Mc, \mathbb C)$ adquiere estructura de $C^*$-álgebra, que denotaremos $\Ac$, por lo que será nuestra $C^*$-álgebra de observables clásicos. 
+
+En cuanto a los estados, el teorema de representación de Riesz-Markov garantiza que el conjunto de estados de $\Ac$ se corresponde con el conjunto de medidas de Radon en el dominio de funciones clásicas, 
+esto es, dado $\omega\in\Ac^*$, existe una medida de Radon $\nu$ tal que \begin{equation}
+    \omega(a) = \int_{\Mc} d\nu \, a =\int_{\Mc} d\mu \, F_C \, a, 
+\end{equation}donde hemos empleado que existe una función densidad $F_C:\Mc \to\mathbb R^+$, la derivada de Radon-Nikodym de $\nu$ con respecto a $\mu$, para poder expresar el estado en función de la medida 
+$\mu$ definida anteriormente. De este modo, nuestros estados clásicos se corresponderán con ensembles sobre $\Mc$ con distribución de probabilidad $F_C$.
+
+Finalmente, aplicando la construcción GNS a $\Ac$, obtenemos una representación $\pi_C: \Ac \to \mathcal B(\Hc)$ de $\Ac$ como operadores multiplicativos acotados sobre $\Hc = \mathcal L^2(\Mc, \mu)$, mientras que 
+el teorema de Gleason afirma que podemos representar los estados de $\Ac$ como matrices densidad de $\mathcal D(\Hc)$: \begin{proposition}\label{representation}
+    Dado un estado $\omega = F_C d\mu$ de $\Ac$, donde la medida $\mu$ define el vector cíclico de la representación GNS y $F_C$ es la densidad de probabilidad con respecto a $\mu$, podemos representarlo como\begin{equation}
+        \hat \rho_C = \int_{\Mc} d\mu(\xi) \int_{\Mc}d\mu(\xi') \sqrt{F_C(\xi)F_C(\xi')}\ket{\xi}\bra{\xi'}.
+    \end{equation}
+\end{proposition}
+
+\subsection{$C^*$-álgebra híbrida}
+
+Como candidato a $C^*$-álgebra híbrida tomaremos $\Ah = \Ac\otimes\Aq$. Sobre este conjunto, formado por observables de la forma \begin{equation}f=\sum_k\gamma_k a_k\otimes A_k, \quad \gamma_k\in\mathbb C,\, a_k\in\Ac, \, A_k\in\Aq,\end{equation}definiremos el producto híbrido dado por \begin{equation}
+    (a\otimes A) \cdot_H (b\otimes B)= (a\cdot_c b) \otimes (A\cdot_Q B) \quad \forall a,b\in\Ac, \, A,B\in\Aq
+\end{equation}y la conjugación dada por \begin{equation}
+    f^* = \sum_k \bar \gamma_k \bar a_k\otimes A_k^\dagger.
+\end{equation}En cuanto a la norma, tomaremos la \textit{norma espacial}, que parte de la inclusión $\mathcal B(\Hc)\otimes \mathcal B(\Hq)\subseteq \mathcal B(\Hc\otimes\Hq)$ y la representación $\pi_H := \pi_C\otimes \pi_Q$ para definir \begin{equation}
+    ||f|| = ||\pi_H(f)||_{\mathcal B(\Hc\otimes \Hq)}.
+\end{equation}Turumaru\cite{turumaru} demostró que esta norma no depende de la representación de los factores. Además, puesto que $\Ac$ es conmutativa, la norma es única. Con estas propiedades, se comprueba que $\Ah$ es una $C^*$-álgebra.
+
+En cuanto a los estados, una posible forma de pensarlos sería el producto de una matriz densidad cuántica por una medida clásica sobre $\Mc$. Sin embargo, mediante la representación $\pi_H$, obtenemos que esto se representaría en $\mathcal D(\Hc\otimes\Hq)$ como $\hat \rho_C\otimes\hat\rho_Q$, es decir, 
+aparece una falta de correlación entre ambos subsistemas. Un estado más general sería una matriz densidad cuántica $\hat \rho(\xi)$ parametrizada por variables clásicas, tal que \begin{equation}
+    \int_{\Mc}d\mu(\xi)\Tr\hat\rho(\xi) = 1.
+\end{equation}De este modo, dado $f\in\Ah$, \begin{equation}
+    \expval{f} = \int_{\Mc} d\mu(\xi) \sum_k \gamma_k a_k(\xi)\Tr(\hat \rho(\xi)A_k).
+\end{equation}No obsnate, definir una dinámica para estos estados sigue siendo un problema abierto. Por otra parte, a partir de la ecuación anterior, vemos que $\hat\rho(\xi)$ define una medida sobre $\Mc$, de modo que, según el teorema de Gleason, existe una matriz densidad $\hat\rho_H$ que representa 
+el estado de $\pi_H(\Ah)$ sobre $\Hc\otimes\Hq$, tal que $\expval{f} = \Tr(\hat\rho_H\pi_H(f)) \ \forall f\in\Ah$. Esta representación facilitará notablemente el problema de definir una dinámica híbrida. Inspirado por la proposición \ref{representation}, escribiremos $\hat\rho_H$ como\begin{equation}\label{changeofformalism}
+    \hat\rho_H =\sum_{m,m'}\int_{\Mc}d\mu(\xi)\int_{\Mc}d\mu(\xi')\rho_{mm'}(\xi,\xi')\ket{\xi,m}\bra{\xi',m'},
+\end{equation}donde $\rho_{mm'}(\xi,\xi') = \sqrt{\mel{m}{\rho(\xi)}{m'}\mel{m}{\rho(\xi')}{m'}}$ y $\{\ket{m}\}$ es una base de $\Hq$.
+
+\begin{proposition}
+    $\hat \rho_H$ es la matriz densidad en $\Hc\otimes\Hq$ correspondiente al estado híbrido $\hat\rho(\xi)$.
+\end{proposition}
+
+
+\chapter{Definición de una entropía híbrida y HCE}
+
+\section{Entropía híbrida}
+
+La definición de una entropía consistente viene de la intención de crear una mecánica estadística híbrida, lo que también puede llevar al desarrollo de una termodinámica híbrida. 
+En \cite{alonso} se propone una entropía híbrida para el estado $\hat\rho(\xi)$, dada por \begin{equation}
+    S_H[\hat\rho(\xi)] =-\int_{\Mc}d\mu(\xi)\Tr (\hat \rho(\xi)\log\hat\rho(\xi)).
+\end{equation}Por otra parte, puesto que hemos visto cómo expresar nuestro estado en forma de matriz densidad $\hat\rho_H$ sobre $\Hc\otimes\Hq$, podemos considerar también la entropía de von Neumann,\begin{equation}
+    S_{vN}[\hat\rho_H] = -\Tr(\hat\rho_H\log\hat\rho_H).
+\end{equation}\begin{proposition}
+    Sea $\hat\rho(\xi)$ un estado de $\Ah$ y $\hat\rho_H$ el correspondiente estado de $\pi_H(\Ah)$. Entonces \begin{equation}S_H[\hat\rho(\xi)]=S_{vN}[\hat\rho_H].\end{equation} 
+\end{proposition}
+
+\section{Ensemble canónico híbdrido}
+
+Una vez definida una entropía híbrida, podemos tratar de resolver el problema MaxEnt: dado un sistema termodinámico en equilibrio con entropía $S$, encontrar el ensemble en equilibrio 
+que maximiza la entropía para un valor dado de energía $E$. Para el estado de la forma $\hat\rho(\xi)$, se demuestra el siguiente resultado: \begin{proposition}[HCE]
+    El estado híbrido que maximiza la entropía $S_H$ con un valor de energía $E=\expval{\hat H(\xi)}$ es \begin{equation}
+        \hat\rho_\text{HCE}(\xi) = \dfrac{e^{-\beta\hat H(\xi)}}{Z_\text{HCE}(\beta)}, \qquad Z_\text{HCE}(\beta) = \int_{\Mc} d\mu (\xi) \Tr(e^{-\beta \hat H(\xi)}).
+    \end{equation}A este estado lo llamaremos ensemble canónico híbrido (HCE).
+\end{proposition}
+
+\begin{proposition}[Propiedades del HCE]El HCE presenta las siguientes características: \begin{enumerate}
+    \item Es aditivo: Si dos sistemas en equilibrio a la misma temperatura están en el HCE, entonces también lo estarán si los consideramos como un solo sistema con dos subsistemas independientes.
+    \item Recupera el ensemble canónico clásico, que maximiza la entropía de Gibbs, cuando se considera únicamente un nivel de energía cuántico.
+    \item Recupera el ensemble canónico cuántico, que maximiza la entropía de von Neumann, cuando se permite únicamente un punto clásico.
+    \item Al desacoplar los hamiltonianos clásico y cuántico, el HCE se convierte en el producto de los ensembles canónicos clásico y cuántico. 
+\end{enumerate}    
+\end{proposition}
+
+No obstante, para este trabajo se pretende emplear el formalismo KvN, de modo que se necesita convertir el estado $\hat \rho_\text{HCE}(\xi)$ a una matriz densidad en $\Hc\otimes\Hq$, para lo cual se hará uso de la ecuación 
+\eqref{changeofformalism} para obtener la expresión del HCE requerida.
+
+Si bien esta construcción se ha hecho sin tener en cuenta la dinámica de los microestados del sistema, un requerimiento para poder definir una termodinámica híbrida sería encontrar una dinámica híbrida que tenga al HCE como punto de equilibrio. 
+El objetivo de este trabajo es precisamente analizar la estabilidad del HCE bajo una dinámica Markoviana, empleando para ello siempre el marco del formalismo KvN.
+
+\chapter{Dinámica de los sistemas híbridos}
+
+Una vez visto cómo describir los estados híbridos, será necesario encontrar la forma de implementar una dinámica sobre los mismos. Para ello, en este trabajo exploraremos la llamada dinámica Markoviana o Lindbladiana, que generaliza la evolución lineal 
+de un sistema cuántico para incluir términos disipativos, llamados lindbladianos.
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{bib}
+
+\appendix
+
+\chapter{Algunas herramientas matemáticas adicionales}
+
+\begin{theorem}[Stone]
+    Sea $\{U(t)\mid t\in\mathbb R\}$ un grupo fuertemente continuo 
+\end{theorem}
+
+\begin{theorem}[Gleason]
+    Sea $\mathcal H$ un espacio de Hilbert separable con $\dim\mathcal H\geq 3$, y sea 
+    $\mu$ una medida definida sobre los subespacios cerrados de $\mathcal H$. Entonces, existe un operador 
+    autoadjunto semidefinido positivo de clase traza $\hat \rho$ tal que, para todo subespacio cerrado $A\subseteq \mathcal H$,\begin{equation}
+        \mu(A) = \Tr(\hat \rho P_A),
+    \end{equation}donde $P_A:\mathcal H\to\mathcal H$ es la proyección ortogonal de $\mathcal H$ sobre $A$.
+\end{theorem}
+
+
+
+\end{document}
