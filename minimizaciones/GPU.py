@@ -386,13 +386,13 @@ def inyectar_warm_start(p_old, num_pi_old, num_pi_new, num_monomios_old, num_mon
         
     return np.array(p_new)
 
-def inyectar_warm_start_cvxpy(coefs_pi_cpx, coefs_sigma_d_cpx, coefs_sigma_c_cpx, 
+def inyectar_warm_start_SCS(coefs_pi_scs, coefs_sigma_d_scs, coefs_sigma_c_scs, 
                               NUM_K_PI, NUM_K_SIGMA, num_basis_Pi, num_monomios, num_spin_ops=15):
     p_new = []
     
     for m in range(NUM_K_PI):
-        if m < len(coefs_pi_cpx):
-            c_old = np.array(coefs_pi_cpx[m])
+        if m < len(coefs_pi_scs):
+            c_old = np.array(coefs_pi_scs[m])
             c = np.zeros(num_basis_Pi, dtype=complex)
             
             if len(c_old) <= num_basis_Pi:
@@ -407,9 +407,9 @@ def inyectar_warm_start_cvxpy(coefs_pi_cpx, coefs_sigma_d_cpx, coefs_sigma_c_cpx
         p_new.extend(c.imag)
         
     for m in range(NUM_K_SIGMA):
-        if m < len(coefs_sigma_d_cpx):
-            d = np.array(coefs_sigma_d_cpx[m])
-            c_spin = np.array(coefs_sigma_c_cpx[m])
+        if m < len(coefs_sigma_d_scs):
+            d = np.array(coefs_sigma_d_scs[m])
+            c_spin = np.array(coefs_sigma_c_scs[m])
         else:
             d = np.random.randn(num_monomios) * 1e-6 + 1j * np.random.randn(num_monomios) * 1e-6
             c_spin = np.random.randn(num_spin_ops) * 1e-6 + 1j * np.random.randn(num_spin_ops) * 1e-6
@@ -538,37 +538,37 @@ scipy_objective, cost_and_grad = crear_funciones_optimizacion(basis_Pi_jax, basi
 adam_gpu = construir_adam_estocastico_gpu(cost_and_grad, dim)
 
 # =================================================================
-# CARGA DEL WARM START DE CVXPY
+# CARGA DEL WARM START DE SCS
 # =================================================================
-print("Cargando solución de CVXPY como Warm Start...")
-datos_cvxpy = np.load(input_path + f"1_{N_c}.npz") # Ajusta tu ruta
-coefs_pi_cvxpy = datos_cvxpy['coefs_pi']
-K_ops_spin_raw = datos_cvxpy['coefs_spin']
+print("Cargando solución de SCS como Warm Start...")
+datos_scs = np.load(input_path + f"1_{N_c}.npz") # Ajustar
+coefs_pi_scs = datos_scs['coefs_pi']
+K_ops_spin_raw = datos_scs['coefs_spin']
 
-coefs_sig_d_cvxpy = []
-coefs_sig_c_cvxpy = []
+coefs_sig_d_scs = []
+coefs_sig_c_scs = []
 
 for m in range(len(K_ops_spin_raw)):
-    num_monomios_cvxpy = len(K_ops_spin_raw[m]) // num_spin_ops_actual
-    matriz_canal = K_ops_spin_raw[m].reshape((num_spin_ops_actual, num_monomios_cvxpy))
+    num_monomios_scs = len(K_ops_spin_raw[m]) // num_spin_ops_actual
+    matriz_canal = K_ops_spin_raw[m].reshape((num_spin_ops_actual, num_monomios_scs))
     U, S, Vh = np.linalg.svd(matriz_canal, full_matrices=False)
     
     c_spin = np.sqrt(S[0]) * U[:, 0]
-    d_espacial_cvxpy = np.sqrt(S[0]) * Vh[0, :]
+    d_espacial_scs = np.sqrt(S[0]) * Vh[0, :]
     d_espacial = np.zeros(num_monomios_actual, dtype=complex)
-    d_espacial[-num_monomios_cvxpy:] = d_espacial_cvxpy
+    d_espacial[-num_monomios_scs:] = d_espacial_scs
     
     # Los nuevos órdenes se inicializan con un mínimo de ruido cuántico
-    d_espacial[:-num_monomios_cvxpy] = np.random.randn(num_monomios_actual - num_monomios_cvxpy) * 1e-6
+    d_espacial[:-num_monomios_scs] = np.random.randn(num_monomios_actual - num_monomios_scs) * 1e-6
     
-    coefs_sig_c_cvxpy.append(c_spin)
-    coefs_sig_d_cvxpy.append(d_espacial)
+    coefs_sig_c_scs.append(c_spin)
+    coefs_sig_d_scs.append(d_espacial)
 # ----------------------------------------------
 
-p_warm_start = inyectar_warm_start_cvxpy(
-    coefs_pi_cvxpy, 
-    coefs_sig_d_cvxpy, 
-    coefs_sig_c_cvxpy, 
+p_warm_start = inyectar_warm_start_SCS(
+    coefs_pi_scs, 
+    coefs_sig_d_scs, 
+    coefs_sig_c_scs, 
     NUM_K_PI, 
     NUM_K_SIGMA, 
     num_basis_Pi_actual, 
